@@ -19,8 +19,8 @@ jobs:
 
       - name: Run tests
         run: |
-          newman run Loja Virtual.postman_collection.json \
-          -e baseUrl.postman_environment.json \
+          newman run "Loja Virtual.postman_collection.json" \
+          -e "baseUrl.postman_environment.json" \
           -r htmlextra \
           --reporter-htmlextra-export reports/index.html
 
