@@ -1,0 +1,42 @@
+name: Testes de API Postman
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+        
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          
+      - name: Instalar Newman (CLI do Postman)
+        run: npm install -g newman
+        
+      - name: Executar a Coleção Postman com Newman
+        run: newman run ./Loja Virtual.postman_collection.json -e ./baseUrl.postman_environment.json
+        # Certifique-se de que os nomes dos arquivos e caminhos estejam corretos.
+
+      - name: Instalar Newman e Reporter HTML
+       run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Executar a Coleção Postman e Gerar Relatório
+       run: newman run ./sua_colecao.json -e ./seu_ambiente.json --reporter htmlextra --reporter-htmlextra-export test_report.html
+        
+      - name: Upload do Relatório de Testes
+      uses: actions/upload-artifact@v4
+      with:
+      name: relatorio-testes-postman
+      path: test_report.html
+
