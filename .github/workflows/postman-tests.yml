@@ -1,42 +1,31 @@
-name: Testes de API Postman
+name: Postman API Tests
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  run-postman-tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do Repositório
-        uses: actions/checkout@v4
-        
-      - name: Instalar Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-          
-      - name: Instalar Newman (CLI do Postman)
-        run: npm install -g newman
-        
-      - name: Executar a Coleção Postman com Newman
-        run: newman run ./Loja Virtual.postman_collection.json -e ./baseUrl.postman_environment.json
-        # Certifique-se de que os nomes dos arquivos e caminhos estejam corretos.
+          node-version: 18
 
-      - name: Instalar Newman e Reporter HTML
-       run: npm install -g newman newman-reporter-htmlextra
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
 
-      - name: Executar a Coleção Postman e Gerar Relatório
-       run: newman run ./sua_colecao.json -e ./seu_ambiente.json --reporter htmlextra --reporter-htmlextra-export test_report.html
-        
-      - name: Upload do Relatório de Testes
-      uses: actions/upload-artifact@v4
-      with:
-      name: relatorio-testes-postman
-      path: test_report.html
+      - name: Run tests
+        run: |
+          newman run Loja Virtual.postman_collection.json \
+          -e baseUrl.postman_environment.json \
+          -r htmlextra \
+          --reporter-htmlextra-export reports/index.html
 
+      - name: Upload Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-report
+          path: reports/index.html
