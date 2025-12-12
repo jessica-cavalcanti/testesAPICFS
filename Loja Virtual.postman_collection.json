@@ -347,7 +347,8 @@
 											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								},
 								{
@@ -357,11 +358,20 @@
 											"//pm.environment.set(\"token\", pm.response.json().authorization);\r",
 											"\r",
 											"\r",
-											"pm.environment.set(\"email\", pm.request.body.email);\r",
-											"pm.environment.set(\"senha\", pm.request.body.senha);"
+											"// pm.environment.set(\"email\", pm.request.body.email);\r",
+											"// pm.environment.set(\"senha\", pm.request.body.senha);\r",
+											"\r",
+											"// Apenas recarrega o ID salvo após criar usuário\r",
+											"let userId = pm.environment.get(\"userId\");\r",
+											"\r",
+											"if (!userId) {\r",
+											"    console.warn(\"Variável userId não encontrada no ambiente.\");\r",
+											"}\r",
+											""
 										],
 										"type": "text/javascript",
-										"packages": {}
+										"packages": {},
+										"requests": {}
 									}
 								}
 							],
