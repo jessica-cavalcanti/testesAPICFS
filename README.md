@@ -38,7 +38,7 @@ A coleção contém testes para:
 | Editar usuário | Atualização de dados e validações |
 | Deletar usuário | Exclusão e retorno esperado |
 | Listar usuários | Lista retornada e quantidade mínima |
-| Email duplicado | Validação de retorno HTTP 400 |
+| Email deletado e cadastrado novamente | Validação de retorno HTTP 200 |
 
 ---
 
