@@ -22,10 +22,10 @@ jobs:
 
       - name: Run tests
         run: |
-         newman run "testesAPICFS/Loja Virtual.postman_collection.json" \
-         -e "testesAPICFS/baseUrl.postman_environment.json" \
-          -r htmlextra \
-          --reporter-htmlextra-export reports/index.html
+         newman run "Loja Virtual.postman_collection.json" \
+         -e "baseUrl.postman_environment.json" \
+         -r htmlextra \
+         --reporter-htmlextra-export reports/index.html
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
