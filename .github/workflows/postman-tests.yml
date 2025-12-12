@@ -27,6 +27,8 @@ jobs:
             -e "baseUrl.postman_environment.json" \
             -r htmlextra \
             --reporter-htmlextra-export reports/index.html
+            --reporter-cli-no-summary false \
+            --reporter-cli-no-console false
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
