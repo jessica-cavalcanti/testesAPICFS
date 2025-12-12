@@ -1,37 +1,8 @@
-name: Postman API Tests
+- name: Run API Tests
+  run: |
+    mkdir -p reports
 
-on: [push]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install Newman
-        run: npm install -g newman newman-reporter-htmlextra
-
-      - name: List files
-        run: ls -R .
-
-      - name: Run Newman tests and generate HTML report
-        run: |
-          mkdir -p reports
-          newman run "Loja Virtual.postman_collection.json" \
-            -e "baseUrl.postman_environment.json" \
-            -r htmlextra \
-            --reporter-htmlextra-export reports/index.html \
-            --reporter-cli-no-summary false \
-            --reporter-cli-no-console false
-
-      - name: Upload Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-report
-          path: reports/index.html
+    newman run "Loja Virtual.postman_collection.json" \
+      -e "baseUrl.postman_environment.json" \
+      -r cli,htmlextra \
+      --reporter-htmlextra-export reports/index.html
