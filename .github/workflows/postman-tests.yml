@@ -27,7 +27,7 @@ jobs:
 
           newman run "Loja Virtual.postman_collection.json" \
             -e "baseUrl.postman_environment.json" \
-            --iteration-count 100 \
+            --iteration-count 10 \
             --delay-request 600 \
             -r cli,htmlextra \
             --reporter-htmlextra-export reports/index.html
@@ -37,3 +37,10 @@ jobs:
         with:
           name: api-report
           path: reports/index.html
+
+      - name: Deploy Newman Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+
