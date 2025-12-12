@@ -17,10 +17,13 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-htmlextra
 
+       - name: List files
+        run: ls -R .
+
       - name: Run tests
         run: |
-          newman run "testesAPICFS/Loja Virtual.postman_collection.json" \
-          -e "testesAPICFS/baseUrl.postman_environment.json" \
+         newman run "testesAPICFS/Loja Virtual.postman_collection.json" \
+         -e "testesAPICFS/baseUrl.postman_environment.json" \
           -r htmlextra \
           --reporter-htmlextra-export reports/index.html
 
